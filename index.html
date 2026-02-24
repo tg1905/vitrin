@@ -1,314 +1,83 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vitrin: Satıcı Fiyat Analisti - Otomatik Fiyat Takibi</title>
-    <meta name="description" content="Trendyol satıcıları için otomatik fiyat takip eklentisi Vitrin. Rakiplerinizin fiyatları düştüğünde anında bildirim alın, kârlılığınızı artırın.">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #F27A1A;
-            --primary-dark: #E06912;
-            --primary-light: #FFF0E6;
-            --text-main: #111827;
-            --text-muted: #4B5563;
-            --bg-body: #F9FAFB;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Navbar */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 24px 0;
-        }
-
-        .logo {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-left: 24px;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .btn-primary {
-            display: inline-block;
-            background-color: var(--primary);
-            color: white !important;
-            padding: 10px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: transform 0.2s, background-color 0.2s;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 80px 0 60px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            letter-spacing: -0.02em;
-            color: #1F2937;
-        }
-
-        .hero h1 span {
-            color: var(--primary);
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 36px;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .store-notice {
-            display: block;
-            margin-top: 16px;
-            font-size: 0.85rem;
-            color: #6B7280;
-        }
-
-        .hero-image {
-            margin-top: 60px;
-            background: white;
-            border-radius: 16px;
-            padding: 8px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            border: 1px solid #E5E7EB;
-        }
-
-        .hero-image img {
-            width: 100%;
-            border-radius: 12px;
-            display: block;
-            background-color: #F3F4F6;
-            min-height: 300px; /* Placeholder */
-        }
-
-        /* Features */
-        .features {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 {
-            font-size: 2.25rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-        }
-
-        .feature-card {
-            background: var(--bg-body);
-            padding: 32px;
-            border-radius: 12px;
-            text-align: left;
-            border: 1px solid #E5E7EB;
-        }
-
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--primary-light);
-            color: var(--primary);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .feature-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 12px;
-        }
-
-        .feature-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* Footer */
-        footer {
-            background: #1F2937;
-            color: white;
-            padding: 60px 0 30px;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 40px;
-        }
-
-        .footer-logo {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 24px;
-        }
-
-        .footer-links a {
-            color: #D1D5DB;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        .copyright {
-            text-align: center;
-            color: #9CA3AF;
-            font-size: 0.85rem;
-            padding-top: 30px;
-            border-top: 1px solid #374151;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .grid { grid-template-columns: 1fr; }
-            .nav-links { display: none; }
-            .footer-content { flex-direction: column; gap: 30px; }
-        }
-    </style>
+    <title>Shopify Price Tracker - Monitor Competitor Prices</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="icon128.png">
 </head>
 <body>
 
-    <div class="container">
-        <nav>
-            <div class="logo">
-                <!-- Replace with logo component -->
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2m5.66 0H14a2 2 0 0 1 2 2v3.34l1 1L23 7v10"/><path d="M14 16v-1.6L19 9"/></svg>
-                Vitrin
-            </div>
-            <div class="nav-links">
-                <a href="#ozellikler">Özellikler</a>
-                <a href="privacy.html">Gizlilik Politikası</a>
-                <a href="#" class="btn-primary">Chrome'a Ekle</a>
-            </div>
-        </nav>
-
-        <section class="hero">
-            <h1>Rakiplerinizin fiyatlarını <span>Saniye Saniye</span> izleyin.</h1>
-            <p>Trendyol satıcıları için geliştirilen bu eklenti, izlediğiniz ürünlerin fiyatı değiştiğinde size masaüstü bildirimi gönderir. Buybox'ı asla kaybetmeyin.</p>
-            
-            <div class="hero-cta">
-                <a href="https://chrome.google.com/webstore" class="btn-primary" style="font-size: 1.1rem; padding: 14px 32px;">Chrome'a Ücretsiz Ekle</a>
-            </div>
-            <!-- Store specific review notice requested by user -->
-            <span class="store-notice">* Şu anda Chrome Web Mağazası tarafından onay sürecinde yayımlanmayı beklemektedir. (Market Onayında)</span>
-
-            <div class="hero-image">
-                <!-- User Logo/Extension Screenshot Injection Placeholder -->
-                <div style="padding: 100px 0; color: #9CA3AF; font-weight: 500;">
-                    [ Eklenti Ekran Görüntüsü veya Logo Gelecek ]
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <section id="ozellikler" class="features">
+    <header>
         <div class="container">
-            <div class="section-title">
-                <h2>Satışlarınızı Katlayacak Özellikler</h2>
-                <p style="color: var(--text-muted); font-size: 1.1rem;">Manuel fiyat takibine son verin. İşletmenizi otomatikleştirin.</p>
-            </div>
+            <nav>
+                <a href="index.html" class="logo">
+                    <img src="icon128.png" alt="Logo">
+                    Shopify Price Tracker
+                </a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="privacy.html">Privacy</a>
+                    <a href="javascript:void(0);" class="btn-nav" onclick="alert('We are currently under review by Chrome Web Store. Check back soon!')">Add to Chrome</a>
+                </div>
+            </nav>
+        </div>
+    </header>
 
+    <section class="hero">
+        <div class="container">
+            <h1>Track Competitor Prices, <br>Win More Sales</h1>
+            <p>The easiest way to monitor Shopify stores. Get instant alerts when prices drop and visualize price history over time.</p>
+            <a href="javascript:void(0);" class="btn-hero" onclick="alert('We are currently under review by Chrome Web Store. Check back soon!')">Add to Chrome - It's Free</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2>Why Use Shopify Price Tracker?</h2>
             <div class="grid">
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-                    </div>
-                    <h3>Anlık Bildirimler</h3>
-                    <p>Rakibiniz fiyatı 1 kuruş bile indirdiğinde anında masaüstünüze veya tarayıcınıza bildirim gelir. Hedef fiyat alarmları kurun.</p>
+                    <div class="icon">🔍</div>
+                    <h3>Smart Extraction</h3>
+                    <p>Automatically detects product prices on any Shopify store instantly. No configuration needed.</p>
                 </div>
-
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <h3>Arka Planda Sorgulama</h3>
-                    <p>Bilgisayarınız açık olduğu sürece siz Trendyol'da olmasanız bile eklenti arka planda ayarladığınız sıklıkta (15 dk/1 saat) fiyatları çeker.</p>
+                    <div class="icon">📉</div>
+                    <h3>Price Drop Alerts</h3>
+                    <p>Get notified immediately when a competitor lowers their price, so you can react fast.</p>
                 </div>
-
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    </div>
-                    <h3>Excel (CSV) Raporlama</h3>
-                    <p>Takip ettiğiniz ürünlerin fiyat geçmişini, en düşük fiyatlarını ve hedeflerinizi tek tıkla Excel'e aktarın.</p>
+                    <div class="icon">📊</div>
+                    <h3>Historical Data</h3>
+                    <p>Visualize price trends over time with clean charts and CSV export capability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="setup">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <h3>Install the Extension</h3>
+                    <p>Add Shopify Price Tracker to your Chrome browser in seconds.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <h3>Visit Any Product Page</h3>
+                    <p>Navigate to a competitor's Shopify product page. Click "Add" in the popup.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <h3>Relax & Monitor</h3>
+                    <p>We'll check prices in the background every 12 hours and alert you of changes.</p>
                 </div>
             </div>
         </div>
@@ -316,19 +85,12 @@
 
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <div>
-                    <span class="footer-logo">Vitrin</span>
-                    <p style="color: #9CA3AF; font-size: 0.9rem; max-width: 300px;">E-ticaret satıcıları için geliştirilen akıllı fiyat rekabet yazılımı.</p>
-                </div>
-                <div class="footer-links">
-                    <a href="privacy.html">Gizlilik Politikası (Privacy)</a>
-                    <a href="mailto:destek@example.com">İletişim</a>
-                </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="mailto:tugay.gokdeniz@yandex.com">Contact Support</a>
             </div>
-            <div class="copyright">
-                &copy; 2026 Vitrin. Tüm hakları saklıdır. Bu eklentinin Trendyol (DSM Grup) firmasıyla resmi bir bağı yoktur, tamamen satıcı ihtiyaçları için geliştirilmiş bağımsız bir araçtır.
-            </div>
+            <p class="copyright">&copy; 2026 Shopify Price Tracker. All rights reserved.</p>
         </div>
     </footer>
 
