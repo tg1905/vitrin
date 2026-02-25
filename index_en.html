@@ -222,51 +222,195 @@
             color: #FFF;
         }
 
-        .grid {
+        /* Bento Grid Layout */
+        .bento-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
+            gap: 24px;
         }
 
-        .feature-card {
+        .bento-item {
             background: var(--bg-card);
-            padding: 40px 32px;
-            border-radius: 16px;
-            text-align: left;
             border: 1px solid var(--border-color);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border-color: rgba(242, 122, 26, 0.3);
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s, border-color 0.3s;
         }
 
-        .feature-icon {
-            width: 56px;
-            height: 56px;
-            background: var(--primary-light);
-            color: var(--primary);
-            border-radius: 14px;
+        .bento-item:hover {
+            border-color: rgba(242, 122, 26, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .bento-item h3 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #FFF;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .bento-item p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .bento-wide { grid-column: span 2; padding-bottom: 120px; }
+
+        /* Algo Graphic */
+        .bento-graphic-algo {
+            background: #0B0F19;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            font-family: monospace;
+            padding: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: absolute;
+            bottom: -20px;
+            right: 40px;
+            width: 380px;
+            transform: rotate(-2deg);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1;
+        }
+
+        .bento-wide:hover .bento-graphic-algo {
+            transform: rotate(0deg) translateY(-10px);
+        }
+
+        .algo-header { display: flex; gap: 6px; margin-bottom: 12px; }
+        .algo-header .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot.red { background: #EF4444; }
+        .dot.yel { background: #F59E0B; }
+        .dot.grn { background: #10B981; }
+        .algo-line { color: #6B7280; margin-bottom: 8px; font-size: 0.85rem; }
+        .algo-line.success { color: #10B981; font-weight: bold; }
+
+        /* Notif Graphic */
+        .bento-graphic-notif {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            left: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .toast-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(242, 122, 26, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 16px;
             display: flex;
             align-items: center;
+            gap: 12px;
+            width: 100%;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transform: translateY(10px);
+            transition: transform 0.3s;
+        }
+
+        .bento-item:hover .toast-card {
+            transform: translateY(0);
+        }
+
+        .toast-icon { font-size: 24px; }
+        .toast-text { display: flex; flex-direction: column; }
+        .toast-text strong { color: #FFF; font-size: 0.95rem; line-height: 1.2;}
+        .toast-text span { color: #9CA3AF; font-size: 0.8rem; }
+
+        /* Excel Graphic */
+        .bento-3 {
+            grid-column: span 3;
+            flex-direction: row;
+            align-items: center;
+            padding: 0;
+        }
+
+        .bento-3-text {
+            padding: 40px;
+            flex: 1;
+        }
+
+        .bento-graphic-csv {
+            flex: 1.5;
+            background: #ffffff; /* Typical Excel white background */
+            border-left: 1px solid var(--border-color);
+            padding: 24px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
-            margin-bottom: 24px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* Top Excel Ribbon Bar Mockup */
+        .excel-toolbar {
+            display: flex;
+            background: #107C41; /* Excel Green */
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px 6px 0 0;
+            font-size: 0.75rem;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+        .excel-toolbar span { display: flex; align-items: center; gap: 4px; }
+
+        .excel-table {
+            border: 1px solid #D1D5DB;
+            border-top: none;
+            background: #fff;
+            border-radius: 0 0 6px 6px;
+            overflow: hidden;
         }
 
-        .feature-card h3 {
-            font-size: 1.35rem;
-            margin-bottom: 16px;
-            color: #FFF;
-            font-weight: 700;
+        .csv-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            border-bottom: 1px solid #E5E7EB;
+            font-size: 0.8rem;
+            color: #374151; /* Darker text for readability in white bg */
+            background: #fff;
+        }
+        
+        .csv-row:nth-child(even) {
+            background:#F9FAFB;
         }
 
-        .feature-card p {
-            color: var(--text-muted);
-            font-size: 1rem;
-            line-height: 1.6;
+        .csv-row.header {
+            color: #6B7280;
+            font-weight: 600;
+            background: #F3F4F6; /* Gray header row */
+            border-bottom: 2px solid #D1D5DB;
+            text-transform: none;
+            letter-spacing: normal;
         }
+
+        .csv-row span { 
+            padding: 8px 12px; 
+            border-right: 1px solid #E5E7EB;
+        }
+        .csv-row span:last-child {
+            border-right: none;
+        }
+        
+        .csv-row span:nth-child(2), .csv-row span:nth-child(3), .csv-row span:nth-child(4), .csv-row span:nth-child(5) { text-align: right; }
+        .csv-row .target { color: #F59E0B; font-weight: 600; font-family: monospace; font-size: 0.85rem;}
+        .csv-row .green { color: #107C41; font-weight: 600; font-family: monospace; font-size: 0.85rem;}
+        .csv-row .blue { color: #2563EB; font-family: monospace; font-size: 0.85rem;}
+        .csv-row .link { color: #2563EB; text-decoration: underline; text-align:center !important; cursor:pointer;}
 
         /* Footer */
         footer {
@@ -324,7 +468,12 @@
             .hero h1 { font-size: 3rem; }
             .hero p { margin: 0 auto 30px; }
             .hero-cta-wrapper { align-items: center; }
-            .grid { grid-template-columns: 1fr; }
+            .bento-grid { grid-template-columns: 1fr; }
+            .bento-wide, .bento-3 { grid-column: span 1; }
+            .bento-wide { padding-bottom: 40px; }
+            .bento-3 { flex-direction: column; }
+            .bento-graphic-csv { border-left: none; border-top: 1px solid var(--border-color); width: 100%; border-radius: 0 0 24px 24px;}
+            .bento-graphic-algo { position: relative; bottom: 0; right: 0; transform: none; width: 100%; margin-top: 20px; }
             .nav-links { display: none; }
             .footer-content { flex-direction: column; gap: 40px; text-align: center; align-items: center; }
         }
@@ -432,29 +581,60 @@
                 <p style="color: var(--text-muted); font-size: 1.1rem;">Put an end to manual price tracking. Automate your business.</p>
             </div>
 
-            <div class="grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+            <div class="bento-grid">
+                <!-- Algo Motoru (Geniş Kutu) -->
+                <div class="bento-item bento-wide">
+                    <div class="bento-content">
+                        <h3>Smart Background Engine</h3>
+                        <p>While you focus on your business, our extension connects to Trendyol. It silently scans competitor prices in the background at your customized intervals.</p>
                     </div>
-                    <h3>Instant Notifications</h3>
-                    <p>Get an instant notification on your desktop or browser when your competitor lowers the price even by 1 cent. Set target price alarms.</p>
+                    <div class="bento-graphic-algo">
+                        <div class="algo-header"><span class="dot red"></span><span class="dot yel"></span><span class="dot grn"></span></div>
+                        <div class="algo-line">➔ initializing background sync...</div>
+                        <div class="algo-line">➔ fetching trendyol.com/p-12345...</div>
+                        <div class="algo-line">➔ tracking competitor 'A' prices...</div>
+                        <div class="algo-line success">✔ competitor dropped price to 299 TL!</div>
+                        <div class="algo-line">➔ triggering alert system...</div>
+                    </div>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <!-- Bildirimler (Dar Kutu) -->
+                <div class="bento-item">
+                    <div class="bento-content">
+                        <h3>Catch Drops Instantly</h3>
+                        <p>Receive an instant Push Notification right to your desktop the second a competitor lowers their price.</p>
                     </div>
-                    <h3>Background Polling</h3>
-                    <p>As long as your computer is on, the extension fetches prices in the background at your set interval (15 min/1 hour), even if you are not on Trendyol.</p>
+                    <div style="height: 100px; position:relative;">
+                        <div class="bento-graphic-notif">
+                            <div class="toast-card">
+                                <div class="toast-icon">🛎️</div>
+                                <div class="toast-text">
+                                    <strong>Price Dropped!</strong>
+                                    <span>Competitor updated their price.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <!-- Excel Raporlama (Tam Genişlik Kutu) -->
+                <div class="bento-item bento-3">
+                    <div class="bento-3-text">
+                        <h3>Strategic Data Management</h3>
+                        <p>Don't just track—analyze! Export the pricing history and targets of your products directly to a familiar <strong>Microsoft Excel</strong> (CSV) format with a single click.</p>
                     </div>
-                    <h3>Excel (CSV) Reporting</h3>
-                    <p>Export the price history, lowest prices, and targets of the products you track to Excel with a single click.</p>
+                    <div class="bento-graphic-csv">
+                        <div class="excel-toolbar">
+                            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-4 13L8 11h2.5l1.5 3 1.5-3H16l-2 4 2 4h-2.5l-1.5-3-1.5 3H8l2-4z"/></svg> vitrin_data_export.csv</span>
+                        </div>
+                        <div class="excel-table">
+                            <div class="csv-row header"><span>A (Product Name)</span><span>B (Current)</span><span>C (Target)</span><span>D (Lowest)</span><span>E (History)</span></div>
+                            <div class="csv-row"><span>Men's Sneakers 24</span><span class="green">399.99 TL</span><span class="target">380.00 TL</span><span class="blue">399.99 TL</span><span>12 pts</span></div>
+                            <div class="csv-row"><span>Wireless Earbuds V2</span><span class="green">750.00 TL</span><span class="target">700.00 TL</span><span class="blue">745.00 TL</span><span>8 pts</span></div>
+                            <div class="csv-row"><span>Paper Towels (12x)</span><span style="font-family:monospace; font-size:0.85rem;">120.50 TL</span><span class="target">100.00 TL</span><span class="blue">110.00 TL</span><span>4 pts</span></div>
+                            <div class="csv-row"><span>Makeup Remover</span><span class="green">119.00 TL</span><span class="target">120.00 TL</span><span class="blue">115.00 TL</span><span>15 pts</span></div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
